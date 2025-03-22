@@ -95,11 +95,11 @@ impl Compounder
 
     fn get_frame (&mut self) -> egui::Frame {
         let cb = match self.ui_mode {
-            InterfaceMode::Dark  => egui::Color32::from_rgb( 20,  20,  20),
-            InterfaceMode::Light => egui::Color32::from_rgb(250, 250, 250)
+            InterfaceMode::Dark  => egui::Color32::from_rgb( 20,  15,  15),
+            InterfaceMode::Light => egui::Color32::from_rgb(250, 245, 245)
         };
         egui::Frame {
-            inner_margin: egui::Margin::same(24.0),
+            inner_margin: egui::Margin::same(24),
             fill: cb,
             ..Default::default()
         }
@@ -283,12 +283,12 @@ impl App for Compounder
             ui.horizontal(|ui| {
                 ui.vertical(|ui| {
                     ui.label(egui::RichText::new("START DATE").small().weak());
-                    if ui.add(ErrorField::new(&mut self.start_date, start_is_valid && (!final_is_valid || range_is_valid))).lost_focus() {
+                    if ui.add(ErrorField::new(&mut self.start_date, start_is_valid && (!final_is_valid || range_is_valid))).changed() {
                         self.redo_parts();
                     };
                     ui.add_space(12.0);
                     ui.label(egui::RichText::new("FINAL DATE").small().weak());
-                    if ui.add(ErrorField::new(&mut self.final_date, final_is_valid && (!start_is_valid || range_is_valid))).lost_focus() {
+                    if ui.add(ErrorField::new(&mut self.final_date, final_is_valid && (!start_is_valid || range_is_valid))).changed() {
                         self.redo_parts();
                     };
                 });
@@ -315,21 +315,21 @@ impl App for Compounder
             ui.horizontal(|ui| {
                 ui.vertical(|ui| {
                     ui.label(egui::RichText::new("START AMOUNT").small().weak());
-                    if ui.text_edit_singleline(&mut self.start_amount).highlight().lost_focus() {
+                    if ui.text_edit_singleline(&mut self.start_amount).highlight().changed() {
                         self.redo_cagr();
                     }
                     ui.add_space(12.0);
                     ui.horizontal(|ui| {
                         ui.vertical(|ui| {
                             ui.label(egui::RichText::new("FINAL AMOUNT").small().weak());
-                            if ui.text_edit_singleline(&mut self.final_amount).highlight().lost_focus() {
+                            if ui.text_edit_singleline(&mut self.final_amount).highlight().changed() {
                                 self.redo_cagr();
                             };
                         });
                         ui.label(egui::RichText::new("\n  =  ").strong());
                         ui.vertical(|ui| {
                             ui.label(egui::RichText::new("CAGR").small().weak());
-                            if ui.text_edit_singleline(&mut self.cagr).highlight().lost_focus() {
+                            if ui.text_edit_singleline(&mut self.cagr).highlight().changed() {
                                 self.redo_amount();
                             };
                         });
