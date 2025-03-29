@@ -1,3 +1,5 @@
 # Compounder
 
 A small application to calculate compound annual growth rate (CAGR) and difference between dates using [egui](https://github.com/emilk/egui) for the user interface and [chrono](https://github.com/chronotope/chrono) for time calculations.
+
+> **DISCLAIMER**: this application is a hobby project and should not be used for production use cases. It is provided as-is and is not likely to be maintained regurlarly.
