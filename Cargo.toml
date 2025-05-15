@@ -2,7 +2,7 @@
 description = "Calculate CAGR and date difference"
 name = "compounder"
 authors = ["Roger Salomonsson <medicorab@gmail.com>"]
-version = "1.0.0"
+version = "1.0.1"
 edition = "2021"
 
 # [[bin]]
@@ -11,7 +11,7 @@ edition = "2021"
 
 [dependencies]
 eframe = { version = "0.31.1", default-features = false, features = ["glow", "persistence"] }
-chrono = { version = "0.4.40", features = ["serde"] }
+chrono = { version = "0.4.41", features = ["serde"] }
 serde  = { version = "1.0.219" }
 # egui_extras = { version = "0.29.1", features = ["svg"] }
 

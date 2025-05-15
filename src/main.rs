@@ -112,7 +112,7 @@ impl Compounder
         if let Some(p) = font.families.get_mut(&egui::FontFamily::Proportional) {
             p.insert(0, fontname.to_string());
             context.set_fonts(font);
-        };
+        }
     }
     
     fn set_style (context: &egui::Context, mode: InterfaceMode) {
@@ -285,28 +285,28 @@ impl App for Compounder
                     ui.label(egui::RichText::new("START DATE").small().weak());
                     if ui.add(ErrorField::new(&mut self.start_date, start_is_valid && (!final_is_valid || range_is_valid))).changed() {
                         self.redo_parts();
-                    };
+                    }
                     ui.add_space(12.0);
                     ui.label(egui::RichText::new("FINAL DATE").small().weak());
                     if ui.add(ErrorField::new(&mut self.final_date, final_is_valid && (!start_is_valid || range_is_valid))).changed() {
                         self.redo_parts();
-                    };
+                    }
                 });
                 ui.add_space(36.0);
                 ui.vertical(|ui| {
                     ui.add_space(12.0);
                     if ui.add(egui::Slider::new(&mut self.years,  0..=50).text("years")).changed() {
                         self.redo_final();
-                    };
+                    }
                     if ui.add(egui::Slider::new(&mut self.months, 0..=11).text("months")).changed() {
                         self.redo_final();
-                    };
+                    }
                     if ui.add(egui::Slider::new(&mut self.weeks,  0..=4).text("weeks")).changed() {
                         self.redo_final();
-                    };
+                    }
                     if ui.add(egui::Slider::new(&mut self.days,   0..=6).text("days")).changed() {
                         self.redo_final();
-                    };
+                    }
                 });
             });
             ui.add_space(12.0);
@@ -324,14 +324,14 @@ impl App for Compounder
                             ui.label(egui::RichText::new("FINAL AMOUNT").small().weak());
                             if ui.text_edit_singleline(&mut self.final_amount).highlight().changed() {
                                 self.redo_cagr();
-                            };
+                            }
                         });
                         ui.label(egui::RichText::new("\n  =  ").strong());
                         ui.vertical(|ui| {
                             ui.label(egui::RichText::new("CAGR").small().weak());
                             if ui.text_edit_singleline(&mut self.cagr).highlight().changed() {
                                 self.redo_amount();
-                            };
+                            }
                         });
                     });
                 });
@@ -347,7 +347,7 @@ impl App for Compounder
                             InterfaceMode::Dark  => self.remode(ui.ctx(), InterfaceMode::Light),
                             InterfaceMode::Light => self.remode(ui.ctx(), InterfaceMode::Dark)
                         }
-                    };
+                    }
                 });
                 ui.add_space(12.0);
                 ui.vertical(|ui| {
@@ -355,13 +355,13 @@ impl App for Compounder
                     ui.horizontal(|ui| {
                         if ui.selectable_label(self.ui_size == InterfaceSize::Small,  "small" ).highlight().clicked() {
                             self.resize(ui.ctx(), InterfaceSize::Small);
-                        };
+                        }
                         if ui.selectable_label(self.ui_size == InterfaceSize::Medium, "medium").highlight().clicked() {
                             self.resize(ui.ctx(), InterfaceSize::Medium);
-                        };
+                        }
                         if ui.selectable_label(self.ui_size == InterfaceSize::Large,  "large" ).highlight().clicked() {
                             self.resize(ui.ctx(), InterfaceSize::Large);
-                        };
+                        }
                     });
                 });
             });
@@ -369,7 +369,7 @@ impl App for Compounder
     }
 }
 
-fn date_difference(sd: NaiveDate, fd: NaiveDate) -> (u8, u8, u8, u8) {
+fn date_difference (sd: NaiveDate, fd: NaiveDate) -> (u8, u8, u8, u8) {
     // Solution suggested by ChatGPT (added number of weeks and adjusted remaining days accordingly).
     use chrono::Datelike;
     let mut yn = fd.year() - sd.year();
@@ -397,7 +397,7 @@ fn date_difference(sd: NaiveDate, fd: NaiveDate) -> (u8, u8, u8, u8) {
     )
 }
 
-fn days_in_month(year: i32, month: u32) -> u32 {
+fn days_in_month (year: i32, month: u32) -> u32 {
     match month {
         1 | 3 | 5 | 7 | 8 | 10 | 12 => 31,
         4 | 6 | 9 | 11 => 30,
@@ -412,7 +412,7 @@ fn days_in_month(year: i32, month: u32) -> u32 {
     }
 }
 
-fn is_leap_year(year: i32) -> bool {
+fn is_leap_year (year: i32) -> bool {
     (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)
 }
 
