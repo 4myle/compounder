@@ -2,7 +2,7 @@
 description = "Calculate CAGR and date difference"
 name = "compounder"
 authors = ["Roger Salomonsson <medicorab@gmail.com>"]
-version = "1.0.3"
+version = "1.0.4"
 edition = "2021"
 
 # [[bin]]
@@ -19,15 +19,26 @@ serde  = { version = "1.0.228" }
 winresource = "0.1.30"
 
 [profile.dev]
-opt-level = 1
+debug = 2
+opt-level = 0
+# split-debuginfo = "unpacked"
 
 [profile.dev.package."*"]
+debug = 1
 opt-level = 3
-debug = false
 
 [profile.release]
+debug = 0
 opt-level = "z"
 lto = true
 codegen-units = 1
 panic = "abort"
 strip = "symbols"
+
+[lints.clippy]
+pedantic = "deny"
+unsafe_code = "deny"
+unwrap_used = "deny"
+expect_used = "deny"
+used_must_use = "deny"
+panic = "deny"

@@ -1,16 +1,5 @@
+
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")] // hide console window on Windows in release
-// #![windows_subsystem = "windows"] // Causes stdout to disappear.
-
-#![deny(clippy::pedantic)]
-#![deny(clippy::unwrap_used)]
-#![deny(clippy::expect_used)]
-#![deny(clippy::panic)]
-#![deny(unused_must_use)]
-
-// #![deny(clippy::unwrap_used)]
-// #![deny(clippy::expect_used)]
-// #![deny(clippy::panic)]
-// #![deny(unused_must_use)]
 
 const GUI_SIZE: egui::Vec2 = egui::Vec2::new(400.0, 390.0);
 const ACCENT_COLOR: egui::Color32 = egui::Color32::from_rgb(170, 0, 204);
