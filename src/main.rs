@@ -260,14 +260,14 @@ impl App for Compounder
         eframe::set_value(storage, eframe::APP_KEY, self);
     }
 
-    fn update (&mut self, context: &egui::Context, _frame: &mut Frame) {
+    fn ui (&mut self, ui: &mut egui::Ui, _frame: &mut Frame) {
         let start_is_valid = self.valid_start();
         let final_is_valid = self.valid_final();
         let range_is_valid = self.valid_range();
-        egui::CentralPanel::default().frame(self.get_frame()).show(context, |ui| {
+        egui::CentralPanel::default().frame(self.get_frame()).show_inside(ui, |ui| {
             let styles = ui.style_mut();
             styles.spacing.item_spacing = egui::Vec2::new(16.0, 8.0);
-            styles.spacing.text_edit_width = 75.0;
+            styles.spacing.text_edit_width = 85.0;
             // egui::Image::new (egui::include_image!("../assets/Panel-Background.svg")).paint_at(ui, ui.ctx().screen_rect());
             ui.horizontal(|ui| {
                 ui.vertical(|ui| {
@@ -280,6 +280,7 @@ impl App for Compounder
                     if ui.add(ErrorField::new(&mut self.final_date, final_is_valid && (!start_is_valid || range_is_valid))).changed() {
                         self.redo_parts();
                     }
+                    // Add checkbox "Follow today".
                 });
                 ui.add_space(36.0);
                 ui.vertical(|ui| {
@@ -356,6 +357,7 @@ impl App for Compounder
             });
         });
     }
+    
 }
 
 fn date_difference (sd: NaiveDate, fd: NaiveDate) -> (u8, u8, u8, u8) {

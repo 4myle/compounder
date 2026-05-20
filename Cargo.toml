@@ -2,7 +2,7 @@
 description = "Calculate CAGR and date difference"
 name = "compounder"
 authors = ["Roger Salomonsson <medicorab@gmail.com>"]
-version = "1.0.4"
+version = "1.0.5"
 edition = "2021"
 
 # [[bin]]
@@ -10,13 +10,13 @@ edition = "2021"
 # path = "src/main.rs"
 
 [dependencies]
-eframe = { version = "0.33.3", default-features = false, features = ["glow", "persistence"] }
-chrono = { version = "0.4.43", features = ["serde"] }
+eframe = { version = "0.34.2", default-features = false, features = ["glow", "persistence"] }
+chrono = { version = "0.4.44", features = ["serde"] }
 serde  = { version = "1.0.228" }
 # egui_extras = { version = "0.29.1", features = ["svg"] }
 
 [build-dependencies]
-winresource = "0.1.30"
+winresource = "0.1.31"
 
 [profile.dev]
 debug = 2
@@ -35,10 +35,14 @@ codegen-units = 1
 panic = "abort"
 strip = "symbols"
 
-[lints.clippy]
-pedantic = "deny"
+[lints.rust]
 unsafe_code = "deny"
+
+[workspace.lints.rust]
+unsafe_code = "deny"
+
+[workspace.lints.clippy]
+pedantic = "deny"
 unwrap_used = "deny"
 expect_used = "deny"
-used_must_use = "deny"
 panic = "deny"
