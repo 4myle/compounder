@@ -38,6 +38,7 @@ struct Compounder
 {
     start_date: String,
     final_date: String,
+    follow_today: bool,
     years: u8,
     months: u8,
     weeks: u8,
@@ -241,6 +242,7 @@ impl Default for Compounder
         Self {
             start_date: dt.to_string(),
             final_date: dt.checked_add_months(chrono::Months::new(12)).unwrap_or_default().to_string(),
+            follow_today: false,
             years: 1,
             months: 0,
             weeks: 0,
@@ -268,7 +270,7 @@ impl App for Compounder
             let styles = ui.style_mut();
             styles.spacing.item_spacing = egui::Vec2::new(16.0, 8.0);
             styles.spacing.text_edit_width = 85.0;
-            // egui::Image::new (egui::include_image!("../assets/Panel-Background.svg")).paint_at(ui, ui.ctx().screen_rect());
+            // egui::Image::new (egui::include_image!("../assets/Panel-Background.svg")).paint_at(ui, ui.ctx().content_rect());
             ui.horizontal(|ui| {
                 ui.vertical(|ui| {
                     ui.label(egui::RichText::new("START DATE").small().weak());
@@ -277,10 +279,18 @@ impl App for Compounder
                     }
                     ui.add_space(12.0);
                     ui.label(egui::RichText::new("FINAL DATE").small().weak());
-                    if ui.add(ErrorField::new(&mut self.final_date, final_is_valid && (!start_is_valid || range_is_valid))).changed() {
+                    ui.checkbox(&mut self.follow_today, "Use today");
+                    if self.follow_today {
+                        self.final_date = chrono::Local::now().date_naive().to_string();
                         self.redo_parts();
+                        ui.add_enabled_ui(false, |ui| {
+                            ui.add(ErrorField::new(&mut self.final_date, final_is_valid && (!start_is_valid || range_is_valid)))
+                        });
+                    } else {
+                        if ui.add(ErrorField::new(&mut self.final_date, final_is_valid && (!start_is_valid || range_is_valid))).changed() {
+                            self.redo_parts();
+                        }
                     }
-                    // Add checkbox "Follow today".
                 });
                 ui.add_space(36.0);
                 ui.vertical(|ui| {
